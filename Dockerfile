@@ -1,11 +1,7 @@
-FROM node:alpine
+FROM alpine:3.11.6
 
-RUN apk add --no-cache bash
+RUN apk add --no-cache netcat-openbsd
 
-RUN mkdir -p /app
-WORKDIR /app
+COPY wait-for /
 
-COPY . /app
-RUN npm install
-
-CMD ./node_modules/.bin/bats wait-for.bats
+ENTRYPOINT [ "/wait-for" ]
