@@ -1,0 +1,34 @@
+
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm ci
+      - run: npm test
+
+  build-push:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          repository: ropitt/wait-for
+          tags: latest

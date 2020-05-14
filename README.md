@@ -4,7 +4,8 @@
 
 When using this tool, you only need to pick the `wait-for` file as part of your project.
 
-[![Build Status](https://travis-ci.org/eficode/wait-for.svg?branch=master)](https://travis-ci.org/eficode/wait-for)
+[![](https://github.com/ropitt/wait-for/workflows/CI/badge.svg)](https://github.com/ropitt/wait-for/actions)
+
 
 ## Usage
 
@@ -42,19 +43,3 @@ services:
     depends_on:
       - db
 ```
-
-## Testing
-
-Ironically testing is done using [bats](https://github.com/sstephenson/bats), which on the other hand is depending on [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
-
-    docker build -t wait-for .
-    docker run -t wait-for
-    
-## Note
-
-Make sure netcat is installed in your Dockerfile before running the command.
-```
-RUN apt-get -q update && apt-get -qy install netcat
-```
-https://stackoverflow.com/questions/44663180/docker-why-does-wait-for-always-time-out
-
